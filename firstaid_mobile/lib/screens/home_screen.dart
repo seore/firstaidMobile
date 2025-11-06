@@ -68,62 +68,65 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextField(
-                decoration: const InputDecoration(
+      body: Column(
+          children: [
+            Padding (
+              padding: const EdgeInsets.all(16),
+              child: TextField(
+              decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.search),
                 hintText: 'Search for an injury...',
                 border: OutlineInputBorder(),
-                ),
-                onChanged: (value) => setState(() => searchQuery = value),
               ),
-            const SizedBox(height: 20),
-            
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: filteredInjuries.length,
-              itemBuilder: (context, index) {
-                final injury = filteredInjuries[index];
-                return Card(
-                  elevation: 3,
-                  child: ListTile(
-                    title: Text(injury.name),
-                    trailing: const Icon(Icons.arrow_forward_ios),
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => InjuryDetailScreen(injury: injury),
-                      ),
-                    ),
-                  ),
-                );
-              },
+              onChanged: (value) => setState(() => searchQuery = value),
+              ),
             ),
-          
-            const SizedBox(height: 20),
-            ElevatedButton.icon(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => EmergencyScreen()),
-              ),
-              icon: const Icon(Icons.call),
-              label: const Text("Emergency Help"),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.redAccent,
-                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            //const SizedBox(height: 20),
+            
+            Expanded(
+              child: ListView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                itemCount: filteredInjuries.length + 1,
+                itemBuilder: (context, index) {
+                  if (index < filteredInjuries.length) {
+                    final currentInjury = filteredInjuries[index];
+                    return Card(
+                      elevation: 3,
+                      margin: const EdgeInsets.symmetric(vertical: 6),
+                      child: ListTile(
+                        title: Text(currentInjury.name),
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => InjuryDetailScreen(injury: currentInjury),
+                          ),
+                        ),
+                      ),
+                    );
+                  } else {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      child: ElevatedButton.icon(
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => EmergencyScreen()),
+                        ),
+                        icon: const Icon(Icons.call),
+                        label: const Text("Emergency Help"),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.redAccent,
+                          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        ),
+                      ),
+                    );
+                  }
+                },
               ),
             ),
           ],
         ),
-      ),
-    )
-  );
+      ); 
   }
 }

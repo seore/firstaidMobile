@@ -148,25 +148,5 @@
       "If they do not regain consciousness within one minute, call for help.",
       "Check for breathing and pulse."
     ]
-  },
-   {
-    "name": "Eye Injury",
-    "imageName": "eye_injury.png",
-    "steps": [
-      "Do not rub or apply pressure to the eye.",
-      "Rinse gently with clean water or saline if a small object is inside.",
-      "If a large object is embedded, do not remove it—stabilize and seek medical help immediately.",
-      "Cover both eyes to reduce movement until help arrives."
-    ]
-  },
-  {
-    "name": "Fainting",
-    "imageName": "faint.png",
-    "steps": [
-      "Lay the person on their back and elevate their legs.",
-      "Loosen tight clothing.",
-      "If they do not regain consciousness within one minute, call for help.",
-      "Check for breathing and pulse."
-    ]
   }
 ]
