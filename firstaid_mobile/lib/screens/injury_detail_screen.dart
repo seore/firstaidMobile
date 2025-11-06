@@ -14,7 +14,7 @@ class InjuryDetailScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset('assets/images/${injury.name.toLowerCase()}.png', height: 180),
+            Image.asset('assets/icons/${injury.name.toLowerCase()}.png', height: 180),
             const SizedBox(height: 20),
             Text(
               "First-Aid Steps:",
