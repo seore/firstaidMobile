@@ -4,7 +4,7 @@ import '../models/injury.dart';
 class InjuryDetailScreen extends StatefulWidget {
   final Injury injury;
   //const InjuryDetailScreen({required this.injury, super.key});
-  const InjuryDetailScreen({Key? key, required this.injury}) : super(key: key);
+  const InjuryDetailScreen({super.key, required this.injury});
 
 
   @override
@@ -45,11 +45,11 @@ class _InjuryDetailScreenState extends State<InjuryDetailScreen> {
                   }
                 });
               },
-              child: Text (
-                currentStep < widget.injury.steps.length - 1 ? "Next Step" : "Restart Steps",
-              ),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24)
+              ),
+              child: Text (
+                currentStep < widget.injury.steps.length - 1 ? "Next Step" : "Restart Steps",
               )
             )
           ],

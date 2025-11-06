@@ -10,6 +10,8 @@ void main() {
 }
 
 class FirstAidApp extends StatelessWidget {
+  const FirstAidApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
