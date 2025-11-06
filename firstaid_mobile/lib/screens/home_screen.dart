@@ -58,14 +58,22 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("FirstAid Pocket"),
+        leading: IconButton(
+          icon: const Icon(Icons.info_outline),
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AboutScreen()),
+          ),
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.info_outline),
+            icon: const Icon(Icons.call, color: Colors.redAccent),
+            tooltip: 'Emergency',
             onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AboutScreen()),
-            ),
-          ),
+              context, 
+              MaterialPageRoute(builder: (context) => EmergencyScreen()),
+            )
+          )
         ],
       ),
       body: Column(
@@ -101,23 +109,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           MaterialPageRoute(
                             builder: (context) => InjuryDetailScreen(injury: currentInjury),
                           ),
-                        ),
-                      ),
-                    );
-                  } else {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      child: ElevatedButton.icon(
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => EmergencyScreen()),
-                        ),
-                        icon: const Icon(Icons.call),
-                        label: const Text("Emergency Help"),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.redAccent,
-                          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                         ),
                       ),
                     );
