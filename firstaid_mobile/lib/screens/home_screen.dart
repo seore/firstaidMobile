@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
 import '../models/injury.dart';
 import 'injury_detail_screen.dart';
@@ -10,17 +12,46 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Injury> injuries = [
-    Injury(name: "Burns", steps: ["Cool the burn", "Cover with sterile cloth"]),
-    Injury(name: "Cuts", steps: ["Stop bleeding", "Clean wound", "Apply bandage"]),
-    Injury(name: "Nosebleed", steps: ["Lean forward", "Pinch nose 10 mins"]),
-  ];
-
+  List<Injury> injuries = [];
   String searchQuery = '';
+  bool loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    loadInjuries();
+  }
+
+  Future<void> loadInjuries() async {
+  final String jsonString = await rootBundle.loadString('assets/injuries.json');
+  final List<dynamic> jsonData = json.decode(jsonString);
+
+  setState(() {
+    injuries = jsonData.map((e) {
+      final name = e['name'] as String?;
+      final imageName = e['imageName'] as String?;
+      final stepsList = e['steps'] as List<dynamic>?;
+
+      return Injury(
+        name: name ?? 'Unknown Injury',
+        imageName: imageName ?? 'default.png',
+        steps: stepsList != null ? stepsList.cast<String>() : ['No steps available'],
+      );
+    }).toList();
+    loading = false;
+  });
+}
+
 
   @override
   Widget build(BuildContext context) {
-    var filteredInjuries = injuries
+    if (loading) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    final filteredInjuries = injuries
         .where((i) => i.name.toLowerCase().contains(searchQuery.toLowerCase()))
         .toList();
 
@@ -37,41 +68,45 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            TextField(
-              decoration: const InputDecoration(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextField(
+                decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.search),
                 hintText: 'Search for an injury...',
                 border: OutlineInputBorder(),
+                ),
+                onChanged: (value) => setState(() => searchQuery = value),
               ),
-              onChanged: (value) => setState(() => searchQuery = value),
-            ),
             const SizedBox(height: 20),
-            Expanded(
-              child: ListView.builder(
-                itemCount: filteredInjuries.length,
-                itemBuilder: (context, index) {
-                  final injury = filteredInjuries[index];
-                  return Card(
-                    elevation: 3,
-                    child: ListTile(
-                      title: Text(injury.name),
-                      trailing: const Icon(Icons.arrow_forward_ios),
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => InjuryDetailScreen(injury: injury),
-                        ),
+            
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: filteredInjuries.length,
+              itemBuilder: (context, index) {
+                final injury = filteredInjuries[index];
+                return Card(
+                  elevation: 3,
+                  child: ListTile(
+                    title: Text(injury.name),
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => InjuryDetailScreen(injury: injury),
                       ),
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
-            const SizedBox(height: 12),
+          
+            const SizedBox(height: 20),
             ElevatedButton.icon(
               onPressed: () => Navigator.push(
                 context,
@@ -88,6 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-    );
+    )
+  );
   }
 }

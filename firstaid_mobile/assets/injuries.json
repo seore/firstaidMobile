@@ -1,7 +1,7 @@
 [
   {
     "name": "Burns",
-    "image": "burn.png",
+    "imageName": "burns.png",
     "steps": [
       "Cool the burn under running cool (not cold) water for at least 10 minutes.",
       "Remove any jewelry or tight clothing near the area.",
@@ -11,7 +11,7 @@
   },
   {
     "name": "Cuts and Bleeding",
-    "image": "blood.png",
+    "imageName": "blood.png",
     "steps": [
       "Apply pressure to stop the bleeding using a clean cloth or bandage.",
       "Rinse the wound gently with clean water.",
@@ -21,7 +21,7 @@
   },
   {
     "name": "Nosebleed",
-    "image": "nose-bleeding.png",
+    "imageName": "nose-bleeding.png",
     "steps": [
       "Sit upright and lean forward slightly (do not tilt head back).",
       "Pinch the soft part of the nose for 10 to 15 minutes.",
@@ -31,7 +31,7 @@
   },
   {
     "name": "Fracture (Broken Bone)",
-    "image": "broken-bone.png",
+    "imageName": "broken-bone.png",
     "steps": [
       "Keep the injured area still and supported with a splint or soft padding.",
       "Do not try to realign the bone.",
@@ -41,7 +41,7 @@
   },
   {
     "name": "Sprain or Strain",
-    "image": "leg.png",
+    "imageName": "leg.png",
     "steps": [
       "Rest the injured limb and avoid putting weight on it.",
       "Apply ice for 15 to 20 minutes every hour for the first 24 hours.",
@@ -51,7 +51,7 @@
   },
   {
     "name": "Choking (Adult)",
-    "image": "swallow.png",
+    "imageName": "swallow.png",
     "steps": [
       "Ask, 'Are you choking?' and encourage coughing if possible.",
       "If unable to breathe or speak, perform 5 back blows between shoulder blades.",
@@ -61,7 +61,7 @@
   },
   {
     "name": "Poisoning",
-    "image": "poison.png",
+    "imageName": "poison.png",
     "steps": [
       "Do not induce vomiting unless instructed by a professional.",
       "Call emergency services or poison control immediately.",
@@ -71,7 +71,7 @@
   },
   {
     "name": "Heatstroke",
-    "image": "hot.png",
+    "imageName": "hot.png",
     "steps": [
       "Move the person to a cool, shaded area.",
       "Cool the body with wet cloths or a fan.",
@@ -81,7 +81,7 @@
   },
   {
     "name": "Hypothermia",
-    "image": "hypothermia.png",
+    "imageName": "hypothermia.png",
     "steps": [
       "Move the person to a warm, dry place.",
       "Remove wet clothing and wrap them in blankets.",
@@ -91,7 +91,7 @@
   },
   {
     "name": "Insect Bite or Sting",
-    "image": "mosquito.png",
+    "imageName": "mosquito.png",
     "steps": [
       "Remove the stinger if visible (scrape it out, do nott pinch).",
       "Wash the area with soap and water.",
@@ -101,7 +101,7 @@
   },
   {
     "name": "Snake Bite",
-    "image": "man.png",
+    "imageName": "man.png",
     "steps": [
       "Keep the person still and calm to slow the spread of venom.",
       "Keep the bitten area below heart level.",
@@ -111,7 +111,7 @@
   },
   {
     "name": "Electric Shock",
-    "image": "shock.png",
+    "imageName": "shock.png",
     "steps": [
       "Do not touch the person if they are still in contact with electricity.",
       "Turn off the power source first or move it away using a non-conductive object.",
@@ -121,7 +121,7 @@
   },
   {
     "name": "Seizure",
-    "image": "seizure.png",
+    "imageName": "seizure.png",
     "steps": [
       "Clear the area of sharp or hard objects.",
       "Do not hold the person down or put anything in their mouth.",
@@ -131,7 +131,7 @@
   },
   {
     "name": "Eye Injury",
-    "image": "eye_injury.png",
+    "imageName": "eye_injury.png",
     "steps": [
       "Do not rub or apply pressure to the eye.",
       "Rinse gently with clean water or saline if a small object is inside.",
@@ -141,7 +141,27 @@
   },
   {
     "name": "Fainting",
-    "image": "faint.png",
+    "imageName": "faint.png",
+    "steps": [
+      "Lay the person on their back and elevate their legs.",
+      "Loosen tight clothing.",
+      "If they do not regain consciousness within one minute, call for help.",
+      "Check for breathing and pulse."
+    ]
+  },
+   {
+    "name": "Eye Injury",
+    "imageName": "eye_injury.png",
+    "steps": [
+      "Do not rub or apply pressure to the eye.",
+      "Rinse gently with clean water or saline if a small object is inside.",
+      "If a large object is embedded, do not remove it—stabilize and seek medical help immediately.",
+      "Cover both eyes to reduce movement until help arrives."
+    ]
+  },
+  {
+    "name": "Fainting",
+    "imageName": "faint.png",
     "steps": [
       "Lay the person on their back and elevate their legs.",
       "Loosen tight clothing.",
