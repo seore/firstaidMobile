@@ -102,10 +102,9 @@ class _PhoneKeypadState extends State<PhoneKeypad> {
           ),
         ),
 
-        // Key rows
-        Wrap(
-          spacing: 12,
-          runSpacing: 12,
+        // Keypad Keys
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             for (final r in [
               ['1','2','3'],
@@ -113,16 +112,24 @@ class _PhoneKeypadState extends State<PhoneKeypad> {
               ['7','8','9'],
               ['*','0','#']
             ])
-              for (final k in r) _buildKey(k),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 6),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  for (final k in r) _buildKey(k),
+                ],
+              ),
+            ),
           ],
         ),
 
-        const SizedBox(height: 12),
+        const SizedBox(height: 10),
 
         // Backspace + Call row
         Row(
           children: [
-            // Backspace / delete
+            // Backspace Button
             Expanded(
               child: OutlinedButton.icon(
                 onPressed: _backspace,

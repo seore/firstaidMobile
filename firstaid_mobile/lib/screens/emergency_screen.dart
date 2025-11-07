@@ -37,7 +37,7 @@ class EmergencyScreen extends StatelessWidget {
         child: Column(
           children: [
             const Text(
-              'Quick Dial — enter a number or use your emergency contact',
+              'Enter a number or use your emergency contact',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16),
             ),
