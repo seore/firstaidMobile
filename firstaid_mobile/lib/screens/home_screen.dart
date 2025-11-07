@@ -69,13 +69,20 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           IconButton(
+            icon: const Icon(Icons.person),
+            tooltip: 'Profile',
+            onPressed: () async {
+              await Navigator.pushNamed(context, '/profile');
+            }
+          ),
+          IconButton(
             icon: const Icon(Icons.call, color: Colors.redAccent),
             tooltip: 'Emergency',
             onPressed: () => Navigator.push(
               context, 
               MaterialPageRoute(builder: (context) => EmergencyScreen()),
             )
-          )
+          ),
         ],
       ),
       body: Column(

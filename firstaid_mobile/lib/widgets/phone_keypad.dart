@@ -76,7 +76,6 @@ class _PhoneKeypadState extends State<PhoneKeypad> {
     final theme = Theme.of(context);
     return Column(
       children: [
-        // Display
         Container(
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
           margin: const EdgeInsets.only(bottom: 8),

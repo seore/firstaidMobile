@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/emergency_service.dart';
+import '../services/profile_service.dart';
 import '../widgets/phone_keypad.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
@@ -17,10 +18,22 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
   bool _loading = true;
   String? _error;
 
+  Profile? _profile;
+  bool _profileLoading = true;
+
   @override
   void initState() {
     super.initState();
     _resolveEmergencyNumber();
+    _loadProfile();
+  }
+
+  Future<void> _loadProfile() async {
+    final profile = await ProfileService.load();
+    setState(() {
+      _profile = profile;
+      _profileLoading = false;
+    });
   }
 
   Future<void> _resolveEmergencyNumber() async {
@@ -108,11 +121,22 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
   @override
   Widget build(BuildContext context) {
     final numberLabel = _emergencyNumber ?? '...';
+    final myContact = _profile?.emergencyContact.trim() ?? '';
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Emergency'), 
-        backgroundColor: Colors.redAccent
+        backgroundColor: Colors.redAccent,
+        actions: [
+          IconButton(
+            tooltip: 'Profile',
+            icon: const Icon(Icons.person),
+            onPressed: () async {
+              await Navigator.pushNamed(context, '/profile');
+              await _loadProfile();
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -134,7 +158,7 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8),
                 child: Text(
-                  'Could not auto detect your region.\nUsing default emergency number: $numberLabel',
+                  'Could not auto detect your region.\nUse default emergency number: $numberLabel',
                   textAlign: TextAlign.center,
                   style: const TextStyle(fontSize: 13, color: Colors.redAccent),
                 ),
@@ -147,12 +171,12 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
               child: const Padding (
                 padding: EdgeInsets.all(6),
                 child: Text(
-                  "Important Tips:\n\n"
+                  "Important Tips:\n"
                   "• Stay calm and check the scene for safety.\n"
                   "• Ensure the person is breathing.\n"
                   "• Apply first-aid if trained.\n"
                   "• Give clear details to the emergency operator.",
-                  style: TextStyle(fontSize: 14, height: 1.4),
+                  style: TextStyle(fontSize: 14, height: 1.5),
                 ),
               ),
             ),
@@ -160,7 +184,7 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
             const SizedBox(height: 12),
 
             ElevatedButton.icon(
-              onPressed: _loading ? null : () => _handleCall(context, _emergencyNumber ?? '999'), 
+              onPressed: _loading ? null : () => _handleCall(context, _emergencyNumber ?? '112'), 
               icon: const Icon(Icons.local_phone, size: 16),
               label: Text(
                 _loading ? "Detecting emergency number..." : "$numberLabel",
@@ -177,36 +201,67 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
             ),
             const SizedBox(height: 8),
 
-            const Align(
-              alignment: AlignmentGeometry.centerLeft,
-              child: Text(
-                "Or dial another number:",
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: _profileLoading ? null : () async {
+                  if (myContact.isEmpty) {
+                    await Navigator.pushNamed(context, '/profile');
+                    await _loadProfile();
+                  } else {
+                    await _handleCall(context, myContact);
+                  }
+                }, 
+                icon: const Icon(Icons.contact_phone, color: Colors.redAccent),
+                label: Text(
+                  _profileLoading ? 'Loading Contact...' : (myContact.isEmpty ? 'Set Emergency Contact' : 'Call Emergency Contact $myContact'),
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.redAccent,
+                  ),
+                ),
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(color: Colors.redAccent, width: 2),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(12)
                 ),
               ),
             ),
-            const SizedBox(height: 8),
+          ),
+      
+          const SizedBox(height: 8),
 
-            Expanded(
-              child: SingleChildScrollView(
-                child: PhoneKeypad(
-                  initialNumber: _manualNumber ?? '',
-                  callLabel: 'Call',
-                  onChanged: (n) {
-                    _manualNumber = n;
-                  },
-                  onCall: (n) async {
-                    await _handleCall(context, n);
-                  },
-                ),
-              )
+          const Align(
+            alignment: AlignmentGeometry.centerLeft,
+            child: Text(
+              "Dial another number:",
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+
+          Expanded(
+            child: SingleChildScrollView(
+              child: PhoneKeypad(
+                initialNumber: _manualNumber ?? '',
+                callLabel: 'Call',
+                onChanged: (n) {
+                  _manualNumber = n;
+                },
+                onCall: (n) async {
+                  await _handleCall(context, n);
+                },
+              ),
             )
-          ],
-        ),
+          )
+        ],
       ),
-    );
+    ),
+  );
   }
 }
 

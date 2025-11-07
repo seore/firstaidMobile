@@ -3,6 +3,7 @@ import 'screens/home_screen.dart';
 import 'screens/injury_detail_screen.dart';
 import 'screens/emergency_screen.dart';
 import 'screens/about_screen.dart';
+import 'screens/profile_screen.dart';
 import 'models/injury.dart';
 
 void main() {
@@ -43,6 +44,7 @@ class FirstAidApp extends StatelessWidget {
       routes: {
         '/emergency': (context) => EmergencyScreen(),
         '/about': (context) => AboutScreen(),
+        '/profile': (context) => const ProfileScreen(),
       },
     );
   }
