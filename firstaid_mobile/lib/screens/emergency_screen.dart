@@ -1,90 +1,81 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '../services/emergency_service.dart';
+import '../widgets/phone_keypad.dart';
 
 class EmergencyScreen extends StatelessWidget {
   const EmergencyScreen({super.key});
 
-  // Make a phone call
-  Future<void> _callNumber(String number) async {
-    final Uri callUri = Uri(scheme: 'tel', path: number);
-
-    if (await canLaunchUrl(callUri)) {
-      await launchUrl(callUri);
+  Future<void> _handleCall(BuildContext context, String number) async {
+    final err = await EmergencyService.tryCall(number);
+    if (err != null) {
+      await showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Call failed'),
+          content: Text(
+            'We could not start a call or FaceTime to $number on this device.\n\n'
+            'Please call the number manually or use another device.\n\nError: $err',
+          ),
+          actions: [
+            TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('OK')),
+          ],
+        ),
+      );
     } else {
-      // Show an error if call cannot be made
-      debugPrint('Could not launch $number');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Attempting to call $number')));
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    String lastNumber = '';
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Emergency Contacts"),
-        backgroundColor: Colors.redAccent,
-      ),
+      appBar: AppBar(title: const Text('Emergency'), backgroundColor: Colors.redAccent),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Emergency instructions
             const Text(
-              "If someone is seriously injured, call your local emergency number immediately.",
+              'Quick Dial — enter a number or use your emergency contact',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-              ),
+              style: TextStyle(fontSize: 16),
             ),
-            const SizedBox(height: 30),
-
-            // Optional extra info
-            Card(
-              color: Colors.red[50],
-              elevation: 3,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: const [
-                    Text(
-                      "Important Tips:",
-                      style: TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      "• Stay calm and check the scene for safety.\n"
-                      "• Make sure the patient is breathing.\n"
-                      "• Apply first-aid if trained.\n"
-                      "• Provide the emergency operator with clear details.",
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ],
+            const SizedBox(height: 12),
+            Expanded(
+              child: SingleChildScrollView(
+                child: PhoneKeypad(
+                  initialNumber: '',
+                  callLabel: 'Call',
+                  onChanged: (n) => lastNumber = n,
+                  onCall: (n) async {
+                    await _handleCall(context, n);
+                  },
                 ),
               ),
             ),
-            const SizedBox(height: 30),
-
-            // Call button
-            ElevatedButton.icon(
-              onPressed: () => _callNumber("911"), // Replace with local emergency number if needed
-              icon: const Icon(Icons.call),
-              label: const Text(
-                "Call Emergency (911)",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.redAccent,
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      await _handleCall(context, '112'); 
+                    },
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
+                    child: const Text('Call 112'),
+                  ),
                 ),
-                elevation: 4,
-              ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () async {
+                      await _handleCall(context, '911');
+                    },
+                    child: const Text('My Contact'),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
