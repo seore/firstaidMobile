@@ -161,9 +161,9 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
 
             ElevatedButton.icon(
               onPressed: _loading ? null : () => _handleCall(context, _emergencyNumber ?? '999'), 
-              icon: const Icon(Icons.local_phone, size: 22),
+              icon: const Icon(Icons.local_phone, size: 16),
               label: Text(
-                _loading ? "Detecting emergency number..." : "Call local Emergency ($numberLabel)",
+                _loading ? "Detecting emergency number..." : "$numberLabel",
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
