@@ -58,8 +58,8 @@ class _PhoneKeypadState extends State<PhoneKeypad> {
       borderRadius: BorderRadius.circular(36),
       onTap: () => _append(label),
       child: Container(
-        width: 72,
-        height: 72,
+        width: 60,
+        height: 60,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: Colors.white,

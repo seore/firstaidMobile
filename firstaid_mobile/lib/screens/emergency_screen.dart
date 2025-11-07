@@ -139,30 +139,15 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(10),
         child: Column(
           children: [
             const Text(
-              'If someone is seriously injured, call your local emergency number immediately.',
+              'If someone is seriously injured, please call your local emergency number immediately.',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
             const SizedBox(height: 12),
-
-            if (_loading)
-              const Padding(
-                padding: EdgeInsets.all(18),
-                child: CircularProgressIndicator(),
-              )
-              else if (_error != null)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Text(
-                  'Could not auto detect your region.\nUse default emergency number: $numberLabel',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 13, color: Colors.redAccent),
-                ),
-              ),
 
             Card(
               color: Colors.red[50],
@@ -181,15 +166,15 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
               ),
             ),
        
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
 
             ElevatedButton.icon(
               onPressed: _loading ? null : () => _handleCall(context, _emergencyNumber ?? '112'), 
-              icon: const Icon(Icons.local_phone, size: 16),
+              //icon: const Icon(Icons.local_phone, size: 14),
               label: Text(
-                _loading ? "Detecting emergency number..." : "$numberLabel",
+                _loading ? "Detecting emergency number..." : "Call $numberLabel",
                 style: const TextStyle(
-                  fontSize: 16,
+                  fontSize: 14,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -230,18 +215,6 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
             ),
           ),
       
-          const SizedBox(height: 8),
-
-          const Align(
-            alignment: AlignmentGeometry.centerLeft,
-            child: Text(
-              "Dial another number:",
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
           const SizedBox(height: 8),
 
           Expanded(
