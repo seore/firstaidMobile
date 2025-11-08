@@ -1,16 +1,46 @@
-# firstaid_mobile
+# 🩺 FirstAid Mobile App
 
-A new Flutter project.
+**FirstAid Mobile** is a cross-platform emergency health guide built with **Flutter**.  
+It helps users respond quickly to injuries and medical emergencies with clear, visual, and spoken step-by-step first aid instructions — even offline.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🚀 Features
 
-A few resources to get you started if this is your first Flutter project:
+- 🧭 **Injury Library:** Browse and search common injuries with images and step-by-step instructions.  
+- 🗣️ **Voice Guidance:** Built-in text-to-speech (TTS) reads each step aloud for hands-free use.  
+- ☎️ **Emergency Call:** Automatically detects location and connects to local emergency services.  
+- 📱 **Interactive Stepper:** Easy navigation through injury steps with visual support.  
+- 🔢 **In-App Keypad:** Quick-access dial pad for manual emergency dialing.  
+- 💾 **Offline Support (Planned):** Access instructions even without an internet connection.  
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🧰 Tech Stack
+
+- **Flutter (Dart)** – UI framework and logic  
+- **Flutter TTS** – Text-to-speech voice assistance  
+- **URL Launcher** – Handles emergency calls and FaceTime  
+- **Shared Preferences** – Local data persistence  
+- **Firebase (Planned)** – For cloud sync and analytics  
+
+---
+
+## 🧑‍⚕️ Future Enhancements
+
+-  🌍 Location-based emergency number detection
+-  🔔 Emergency alert sharing with family and contacts
+-  🏥 Integration with NHS First Aid database
+-  🎙️ Multi-language voice guidance
+-  ☁️ Cloud user profiles and backups
+
+## 📸 App Preview
+![alt text](assets/appPrev.png)
+![alt text](assets/appPrev2.png)
+![alt text](assets/appPrev3.png)
+
+## 🧑‍💻 Developed By
+Seore Soyannwo
+🎨 Designer | 🧠 Developer | 📍 Based in Lagos
+📧 seoresoyannwo@gmail.com
+

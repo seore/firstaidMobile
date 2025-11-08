@@ -37,7 +37,15 @@ class _HomeScreenState extends State<HomeScreen> {
       return Injury(
         name: name ?? 'Unknown Injury',
         imageName: imageName ?? 'default.png',
-        steps: stepsList != null ? stepsList.cast<String>() : ['No steps available'],
+        steps: stepsList != null
+    ? stepsList.map((e) {
+        if (e is Map<String, dynamic>) return e;
+        return {'text': e.toString()}; // convert old String steps
+      }).toList()
+    : [
+        {'text': 'No steps available'}
+      ],
+
       );
     }).toList();
     loading = false;
