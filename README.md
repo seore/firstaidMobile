@@ -27,9 +27,8 @@ It helps users respond quickly to injuries and medical emergencies with clear, v
 ---
 
 ## 📸 App Preview
-![alt text](assets/appPrev.png)
-![alt text](assets/appPrev2.png)
-![alt text](assets/appPrev3.png)
+<img width="603" height="1311" alt="appPrev2" src="https://github.com/user-attachments/assets/b93e0ab6-7e4d-4873-9acf-3216b7fa3e14" />
+<img width="603" height="1311" alt="appPrev3" src="https://github.com/user-attachments/assets/a8809f39-7b9c-40f7-abee-fe9fd3bbf5f9" />
 
 ## 🧑‍💻 Developed By
 Seore Soyannwo
