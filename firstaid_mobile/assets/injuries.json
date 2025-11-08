@@ -15,12 +15,8 @@
       "imageName": "burnstep3.png"
     },
     {
-      "text": "Cool the burn under cool running water for at least 20 minutes.",
-      "imageName": "burns.png"
-    },
-    {
-      "text": "If the burn is large, on the face, hands, or genitals — call emergency services.",
-      "imageName": "burns.png"
+      "text": "If the burn is large, on the face, hands, or genitals — call emergency services below.",
+      "imageName": "burnstep4.png"
     }
   ]
   }
