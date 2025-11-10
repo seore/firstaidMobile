@@ -25,23 +25,23 @@
   "steps": [
     {
       "text": "Call emergency services below.",
-      "imageName": "burnstep4.png"
+      "imageName": "bleedstep1.png"
     },
     {
       "text": "Put gloves on if available.",
-      "imageName": "burnstep1.png"
+      "imageName": "bleedstep2.png"
     },
     {
       "text": "Apply firm pressure directly on the wound with a clean cloth or dressing.",
-      "imageName": "burnstep2.png"
+      "imageName": "bleedstep3.png"
     },
     {
       "text": "Keep pressure on the wound; add more dressings if soaked - don't remove the first one.",
-      "imageName": "burnstep3.png"
+      "imageName": "bleedstep4.png"
     },
     {
       "text": "Help the person lie down, keep them warm and still until help arrives.",
-      "imageName": "burnstep3.png"
+      "imageName": "bleedstep5.png"
     }
   ]
   },
@@ -50,19 +50,19 @@
   "steps": [
     {
       "text": "Sit upright and lean forward slightly (do not tilt head back).",
-      "imageName": "burnstep4.png"
+      "imageName": "nosebleed1.png"
     },
     {
       "text": "Pinch the soft part of the nose for 10 to 15 minutes.",
-      "imageName": "burnstep1.png"
+      "imageName": "nosebleed2.png"
     },
     {
       "text": "Breathe through the mouth and remain calm.",
-      "imageName": "burnstep2.png"
+      "imageName": "nosebleed3.png"
     },
     {
       "text": "If bleeding continues after 20 minutes, call the emergency line.",
-      "imageName": "burnstep2.png"
+      "imageName": "nosebleed4.png"
     }
   ]
   },
@@ -71,19 +71,19 @@
   "steps": [
     {
       "text": "Keep the injured area still and supported with a splint or soft padding.",
-      "imageName": "burnstep4.png"
+      "imageName": "fracstep1.png"
     },
     {
       "text": "Do not try to realign the bone.",
-      "imageName": "burnstep1.png"
+      "imageName": "fracstep2.png"
     },
     {
       "text": "Apply an ice pack wrapped in cloth to reduce swelling.",
-      "imageName": "burnstep2.png"
+      "imageName": "fracstep3.png"
     },
     {
       "text": "Call emergency medical help immediately.",
-      "imageName": "burnstep2.png"
+      "imageName": "fracstep4.png"
     }
   ]
   },
@@ -92,19 +92,19 @@
   "steps": [
     {
       "text": "Rest the injured limb and avoid putting weight on it.",
-      "imageName": "burnstep4.png"
+      "imageName": "strain1.png"
     },
     {
       "text": "Apply ice for 15 to 20 minutes every hour for the first 24 hours.",
-      "imageName": "burnstep1.png"
+      "imageName": "strain2.png"
     },
     {
       "text": "Wrap with an elastic bandage to reduce swelling.",
-      "imageName": "burnstep2.png"
+      "imageName": "strain3.png"
     },
     {
       "text": "Elevate the limb above heart level if possible. Call emergency help if needed.",
-      "imageName": "burnstep2.png"
+      "imageName": "strain4.png"
     }
   ]
   },
@@ -113,19 +113,19 @@
   "steps": [
     {
       "text": "Ask, 'Are you choking?' and encourage coughing if possible.",
-      "imageName": "burnstep4.png"
+      "imageName": "choke1.png"
     },
     {
       "text": "If unable to breathe or speak, perform 5 back blows between shoulder blades.",
-      "imageName": "burnstep1.png"
+      "imageName": "choke2.png"
     },
     {
       "text": "If still choking, perform 5 abdominal thrusts (Heimlich maneuver).",
-      "imageName": "burnstep2.png"
+      "imageName": "choke3.png"
     },
     {
       "text": "Repeat until the object is expelled or Call emergency help if needed.",
-      "imageName": "burnstep2.png"
+      "imageName": "choke4.png"
     }
   ]
   },
