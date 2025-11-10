@@ -16,13 +16,13 @@ class FirstAidApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FirstAid Pocket',
+      title: 'Aidly',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.blueAccent,
+        primaryColor: const Color.fromARGB(255, 33, 141, 165),
         scaffoldBackgroundColor: Colors.grey[100],
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: const Color.fromARGB(255, 33, 141, 165),
           foregroundColor: Colors.white,
           centerTitle: true,
         ),

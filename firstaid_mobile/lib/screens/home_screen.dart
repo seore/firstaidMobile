@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("FirstAid Pocket"),
+        title: const Text("Aidly"),
         leading: IconButton(
           icon: const Icon(Icons.info_outline),
           onPressed: () => Navigator.push(
@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
             }
           ),
           IconButton(
-            icon: const Icon(Icons.call, color: Color.fromARGB(255, 224, 1, 1)),
+            icon: const Icon(Icons.call, color: Color.fromARGB(255, 250, 88, 88)),
             tooltip: 'Emergency',
             onPressed: () => Navigator.push(
               context, 

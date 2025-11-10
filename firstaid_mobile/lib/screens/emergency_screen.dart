@@ -21,6 +21,10 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
   Profile? _profile;
   bool _profileLoading = true;
 
+  String? _countryName;
+  String? _locality;
+  String? _countryCode;
+
   @override
   void initState() {
     super.initState();
@@ -60,63 +64,171 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
       );
 
       final placemarks = await placemarkFromCoordinates(pos.latitude, pos.longitude);
-      final countryCode = placemarks.isNotEmpty ? (placemarks.first.isoCountryCode ?? '').toUpperCase() : '';
+      final place = placemarks.isNotEmpty ? placemarks.first : null;
+      final countryCode = place?.isoCountryCode != null ? place!.isoCountryCode!.toUpperCase() : '';
+      final countryName = place?.country;
+      final locality = place?.locality ?? place?.subAdministrativeArea;
       final number = _numberForCountry(countryCode);
 
+      if (!mounted) return;
       setState(() {
         _emergencyNumber = number;
+        _countryCode = countryCode;
+        _countryName = countryName;
+        _locality = locality;
         _loading = false;
         _error = null;
       });
     } catch (e) {
+      if (!mounted) return;
       setState(() {
         _emergencyNumber = '999';
         _loading = false;
-        _error = e.toString();
+        _error = 'We couldn’t automatically detect your location. Using a default emergency number. Please double-check your local number.';
       });
     }
   }
 
   String _numberForCountry(String code) {
-    switch (code) {
-      case 'US':
-      case 'CA':
-        return '911';
-      case 'GB':
-        return '999';
-      case 'AU':
-        return '000';
-      case 'NZ':
-        return '111';
-      default:
-        return '112';
-    }
-  }
+  switch (code) {
+    // North America
+    case 'US':
+    case 'CA':
+      return '911';
+    case 'MX': // Mexico
+      return '911';
 
-  Future<void> _handleCall(BuildContext context, String number) async {
-    final err = await EmergencyService.tryCall(number);
-    if (err != null && mounted) {
-      await showDialog(
-        context: context, 
-        builder: (ctx) => AlertDialog(
-          title: const Text('Call failed'),
-          content: Text(
-            'We could not start a call to this $number on this device.\n\n'
-            'Please dial the number manually or use another device.\n\nError: $err',
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(ctx), 
-              child: const Text('OK'),
-            )
-          ],
-        )
-      );
-    } else if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Attempting to call $number')),
-      );
-    }
+    // UK & Europe
+    case 'GB': // United Kingdom
+      return '999';
+    case 'IE': // Ireland
+      return '112';
+    case 'FR': // France
+    case 'DE': // Germany
+    case 'ES': // Spain
+    case 'IT': // Italy
+    case 'NL': // Netherlands
+    case 'BE': // Belgium
+    case 'PT': // Portugal
+    case 'SE': // Sweden
+    case 'FI': // Finland
+    case 'NO': // Norway
+    case 'DK': // Denmark
+    case 'PL': // Poland
+    case 'CZ': // Czech Republic
+    case 'GR': // Greece
+      return '112';
+
+    // Oceania
+    case 'AU': // Australia
+      return '000';
+    case 'NZ': // New Zealand
+      return '111';
+    case 'PG': // Papua New Guinea
+      return '111';
+    case 'FJ': // Fiji
+      return '911';
+
+    // Asia
+    case 'IN': // India
+      return '112';
+    case 'CN': // China
+      return '120';
+    case 'JP': // Japan
+      return '119';
+    case 'KR': // South Korea
+      return '119';
+    case 'SG': // Singapore
+      return '995';
+    case 'MY': // Malaysia
+      return '999';
+    case 'TH': // Thailand
+      return '1669';
+    case 'PH': // Philippines
+      return '911';
+    case 'ID': // Indonesia
+      return '118';
+
+    // Middle East
+    case 'AE': // United Arab Emirates
+      return '998';
+    case 'SA': // Saudi Arabia
+      return '997';
+    case 'IL': // Israel
+      return '101';
+    case 'QA': // Qatar
+      return '999';
+    case 'KW': // Kuwait
+      return '112';
+    case 'OM': // Oman
+      return '9999';
+    case 'BH': // Bahrain
+      return '999';
+
+    // Africa
+    case 'ZA': // South Africa
+      return '112';
+    case 'NG': // Nigeria
+      return '112';
+    case 'GH': // Ghana
+      return '112';
+    case 'KE': // Kenya
+      return '999';
+    case 'EG': // Egypt
+      return '123';
+    case 'MA': // Morocco
+      return '190';
+    case 'ET': // Ethiopia
+      return '907';
+    case 'TZ': // Tanzania
+      return '112';
+    case 'UG': // Uganda
+      return '999';
+
+    // South America
+    case 'BR': // Brazil
+      return '190';
+    case 'AR': // Argentina
+      return '911';
+    case 'CL': // Chile
+      return '131';
+    case 'CO': // Colombia
+      return '123';
+    case 'PE': // Peru
+      return '105';
+    case 'VE': // Venezuela
+      return '171';
+
+    default:
+      return '112'; // universal GSM emergency number
   }
+}
+
+
+Future<void> _handleCall(BuildContext context, String number) async {
+  final err = await EmergencyService.tryCall(number);
+  if (err != null && mounted) {
+    await showDialog(
+      context: context, 
+      builder: (ctx) => AlertDialog(
+        title: const Text('Call failed'),
+        content: Text(
+          'We could not start a call to this $number on this device.\n\n'
+          'Please dial the number manually or use another device.\n\nError: $err',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx), 
+            child: const Text('OK'),
+          )
+        ],
+      )
+    );
+  } else if (mounted) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Attempting to call $number')),
+    );
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +238,7 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Emergency'), 
-        backgroundColor: Colors.redAccent,
+        backgroundColor: const Color.fromARGB(255, 223, 2, 2),
         actions: [
           IconButton(
             tooltip: 'Profile',
@@ -139,22 +251,47 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
+            const Icon(Icons.emergency_share, size: 48, color: Color.fromARGB(255, 223, 2, 2)
+            ),
+            const SizedBox(height: 15),
             const Text(
               'If someone is seriously injured, please call your local emergency number immediately.',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 20),
 
+            // Location Info
+            if (_countryName != null || _locality != null) ...[
+              Text(
+                'Detected Location: '
+                '${_locality ?? ''}${_locality != null && _countryCode != null ? ', ' : ''}'
+                '${_countryName ?? ''}',
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 13, color: Colors.grey),
+              ),
+              const SizedBox(height: 8),
+            ],
+
+            // Error if permission denied
+            if (_error != null) ...[
+              Text(
+                'Location issue: $_error\nUsing a different emergency number. Please double check your local number.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 12, color: Colors.redAccent),
+              ),
+              const SizedBox(height: 8),
+            ],
+            
             Card(
               color: Colors.red[50],
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),
               ),
               child: const Padding (
-                padding: EdgeInsets.all(6),
+                padding: EdgeInsets.all(15),
                 child: Text(
                   "Important Tips:\n"
                   "• Stay calm and check the scene for safety.\n"
@@ -166,7 +303,7 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
               ),
             ),
        
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
 
             ElevatedButton.icon(
               onPressed: _loading ? null : () => _handleCall(context, _emergencyNumber ?? '112'), 
@@ -179,12 +316,12 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.redAccent,
-                padding: const EdgeInsets.symmetric(vertical: 16),
+                backgroundColor: const Color.fromARGB(255, 223, 2, 2),
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 20),
 
             SizedBox(
               width: double.infinity,
@@ -197,17 +334,17 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
                     await _handleCall(context, myContact);
                   }
                 }, 
-                icon: const Icon(Icons.contact_phone, color: Colors.redAccent),
+                icon: const Icon(Icons.contact_phone, color: Color.fromARGB(255, 223, 2, 2)),
                 label: Text(
                   _profileLoading ? 'Loading Contact...' : (myContact.isEmpty ? 'Set Emergency Contact' : 'Call Emergency Contact $myContact'),
                   style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
-                    color: Colors.redAccent,
+                    color: Color.fromARGB(255, 223, 2, 2),
                   ),
                 ),
                 style: OutlinedButton.styleFrom(
-                  side: const BorderSide(color: Colors.redAccent, width: 2),
+                  side: const BorderSide(color: Color.fromARGB(255, 223, 2, 2), width: 2),
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(12)
                 ),
@@ -217,6 +354,38 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
       
           const SizedBox(height: 8),
 
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 12),
+                  Card(
+                    color: Colors.red[50],
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    child: const Padding(
+                      padding: EdgeInsets.all(14),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "When you call be ready to say:",
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                          ),
+                          SizedBox(height: 6),
+                          Text("Where are you (address or landmark)?"),
+                          Text("What happened (e.g. burn, fall, choking)?"),
+                          Text("How many people are injured?"),
+                          Text("If the person is awake and breathing."),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+          
+          /*
           Expanded(
             child: SingleChildScrollView(
               child: PhoneKeypad(
@@ -231,6 +400,7 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
               ),
             )
           )
+          */
         ],
       ),
     ),
