@@ -24,10 +24,6 @@
   "name": "Severe Bleeding",
   "steps": [
     {
-      "text": "Call emergency services below.",
-      "imageName": "bleedstep1.png"
-    },
-    {
       "text": "Put gloves on if available.",
       "imageName": "bleedstep2.png"
     },
@@ -40,8 +36,8 @@
       "imageName": "bleedstep4.png"
     },
     {
-      "text": "Help the person lie down, keep them warm and still until help arrives.",
-      "imageName": "bleedstep5.png"
+      "text": "Call emergency services below if bleeding continues.",
+      "imageName": "emergency.png"
     }
   ]
   },
@@ -62,7 +58,7 @@
     },
     {
       "text": "If bleeding continues after 20 minutes, call the emergency line.",
-      "imageName": "nosebleed4.png"
+      "imageName": "emergency.png"
     }
   ]
   },
@@ -83,7 +79,7 @@
     },
     {
       "text": "Call emergency medical help immediately.",
-      "imageName": "fracstep4.png"
+      "imageName": "emergency.png"
     }
   ]
   },
@@ -105,6 +101,10 @@
     {
       "text": "Elevate the limb above heart level if possible. Call emergency help if needed.",
       "imageName": "strain4.png"
+    },
+    {
+      "text": "Call emergency help if needed.",
+      "imageName": "emergency.png"
     }
   ]
   },
@@ -120,12 +120,12 @@
       "imageName": "choke2.png"
     },
     {
-      "text": "If still choking, perform 5 abdominal thrusts (Heimlich maneuver).",
+      "text": "If still choking, perform 5 abdominal thrusts (Heimlich maneuver). Repeat until the object is expelled",
       "imageName": "choke3.png"
     },
     {
-      "text": "Repeat until the object is expelled or Call emergency help if needed.",
-      "imageName": "choke4.png"
+      "text": "Call emergency help if needed.",
+      "imageName": "emergency.png"
     }
   ]
   },
@@ -137,8 +137,8 @@
       "imageName": "burnstep4.png"
     },
     {
-      "text": "Call emergency services or poison control immediately.",
-      "imageName": "burnstep1.png"
+      "text": "Call emergency services.",
+      "imageName": "emergency.png"
     },
     {
       "text": "Provide details about the substance taken and the amount.",
@@ -167,7 +167,7 @@
     },
     {
       "text": "Call emergency services immediately if confusion or unconsciousness occurs.",
-      "imageName": "burnstep2.png"
+      "imageName": "emergency.png"
     }
   ]
   },
@@ -188,7 +188,7 @@
     },
     {
       "text": "Call emergency services immediately.",
-      "imageName": "burnstep2.png"
+      "imageName": "emergency.png"
     }
   ]
   },
@@ -209,7 +209,7 @@
     },
     {
       "text": "Call emergency help if there is an allergic reaction (swelling, difficulty breathing).",
-      "imageName": "burnstep2.png"
+      "imageName": "emergency.png"
     }
   ]
   },
@@ -225,12 +225,12 @@
       "imageName": "burnstep1.png"
     },
     {
-      "text": "Wrap with an elastic bandage to reduce swelling.",
+      "text": "Wrap with an elastic bandage to reduce swelling. Elevate the limb above heart level if possible.",
       "imageName": "burnstep2.png"
     },
     {
-      "text": "Elevate the limb above heart level if possible. Call emergency help if needed.",
-      "imageName": "burnstep2.png"
+      "text": "Call emergency help if needed.",
+      "imageName": "emergency.png"
     }
   ]
   },
@@ -255,7 +255,7 @@
     },
     {
       "text": "If more help needed, Call the emergency line.",
-      "imageName": "burnstep2.png"
+      "imageName": "emergency.png"
     }
   ]
   },
@@ -292,12 +292,12 @@
       "imageName": "burnstep1.png"
     },
     {
-      "text": "If they do not regain consciousness within one minute, call for help.",
+      "text": "Check for breathing and pulse.",
       "imageName": "burnstep2.png"
     },
     {
-      "text": "Check for breathing and pulse.",
-      "imageName": "burnstep2.png"
+      "text": "If they do not regain consciousness within one minute, call for help.",
+      "imageName": "emergency.png"
     }
   ]
   }
