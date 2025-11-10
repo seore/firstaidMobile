@@ -36,9 +36,9 @@ flutter:
     - assets/injuries.json
     - assets/steps/
 
-flutter_icons:
+flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "assets/icons/appIcon.png"
+  image_path: "assets/icons/appIcon2.png"
   adaptive_icon_background: "#ffffff"
-  adaptive_icon_foreground: "assets/icons/appIcon.png"
+  adaptive_icon_foreground: "assets/icons/appIcon2.png"
