@@ -19,5 +19,286 @@
       "imageName": "burnstep4.png"
     }
   ]
+  },
+  {
+  "name": "Severe Bleeding",
+  "steps": [
+    {
+      "text": "Call emergency services below.",
+      "imageName": "burnstep4.png"
+    },
+    {
+      "text": "Put gloves on if available.",
+      "imageName": "burnstep1.png"
+    },
+    {
+      "text": "Apply firm pressure directly on the wound with a clean cloth or dressing.",
+      "imageName": "burnstep2.png"
+    },
+    {
+      "text": "Keep pressure on the wound; add more dressings if soaked - don't remove the first one.",
+      "imageName": "burnstep3.png"
+    },
+    {
+      "text": "Help the person lie down, keep them warm and still until help arrives.",
+      "imageName": "burnstep3.png"
+    }
+  ]
+  },
+  {
+  "name": "Nosebleed",
+  "steps": [
+    {
+      "text": "Sit upright and lean forward slightly (do not tilt head back).",
+      "imageName": "burnstep4.png"
+    },
+    {
+      "text": "Pinch the soft part of the nose for 10 to 15 minutes.",
+      "imageName": "burnstep1.png"
+    },
+    {
+      "text": "Breathe through the mouth and remain calm.",
+      "imageName": "burnstep2.png"
+    },
+    {
+      "text": "If bleeding continues after 20 minutes, call the emergency line.",
+      "imageName": "burnstep2.png"
+    }
+  ]
+  },
+  {
+  "name": "Fracture (Broken Bone)",
+  "steps": [
+    {
+      "text": "Keep the injured area still and supported with a splint or soft padding.",
+      "imageName": "burnstep4.png"
+    },
+    {
+      "text": "Do not try to realign the bone.",
+      "imageName": "burnstep1.png"
+    },
+    {
+      "text": "Apply an ice pack wrapped in cloth to reduce swelling.",
+      "imageName": "burnstep2.png"
+    },
+    {
+      "text": "Call emergency medical help immediately.",
+      "imageName": "burnstep2.png"
+    }
+  ]
+  },
+  {
+  "name": "Sprain or Strain",
+  "steps": [
+    {
+      "text": "Rest the injured limb and avoid putting weight on it.",
+      "imageName": "burnstep4.png"
+    },
+    {
+      "text": "Apply ice for 15 to 20 minutes every hour for the first 24 hours.",
+      "imageName": "burnstep1.png"
+    },
+    {
+      "text": "Wrap with an elastic bandage to reduce swelling.",
+      "imageName": "burnstep2.png"
+    },
+    {
+      "text": "Elevate the limb above heart level if possible. Call emergency help if needed.",
+      "imageName": "burnstep2.png"
+    }
+  ]
+  },
+  {
+  "name": "Choking",
+  "steps": [
+    {
+      "text": "Ask, 'Are you choking?' and encourage coughing if possible.",
+      "imageName": "burnstep4.png"
+    },
+    {
+      "text": "If unable to breathe or speak, perform 5 back blows between shoulder blades.",
+      "imageName": "burnstep1.png"
+    },
+    {
+      "text": "If still choking, perform 5 abdominal thrusts (Heimlich maneuver).",
+      "imageName": "burnstep2.png"
+    },
+    {
+      "text": "Repeat until the object is expelled or Call emergency help if needed.",
+      "imageName": "burnstep2.png"
+    }
+  ]
+  },
+  {
+  "name": "Poisoning",
+  "steps": [
+    {
+      "text": "Do not induce vomiting unless instructed by a professional.",
+      "imageName": "burnstep4.png"
+    },
+    {
+      "text": "Call emergency services or poison control immediately.",
+      "imageName": "burnstep1.png"
+    },
+    {
+      "text": "Provide details about the substance taken and the amount.",
+      "imageName": "burnstep2.png"
+    },
+    {
+      "text": "Do not give food or drink unless advised.",
+      "imageName": "burnstep2.png"
+    }
+  ]
+  },
+  {
+  "name": "Heatstroke",
+  "steps": [
+    {
+      "text": "Move the person to a cool, shaded area.",
+      "imageName": "burnstep4.png"
+    },
+    {
+      "text": "Cool the body with wet cloths or a fan.",
+      "imageName": "burnstep1.png"
+    },
+    {
+      "text": "Give small sips of water if the person is conscious.",
+      "imageName": "burnstep2.png"
+    },
+    {
+      "text": "Call emergency services immediately if confusion or unconsciousness occurs.",
+      "imageName": "burnstep2.png"
+    }
+  ]
+  },
+  {
+  "name": "Hypothermia",
+  "steps": [
+    {
+      "text": "Move the person to a warm, dry place.",
+      "imageName": "burnstep4.png"
+    },
+    {
+      "text": "Remove wet clothing and wrap them in blankets.",
+      "imageName": "burnstep1.png"
+    },
+    {
+      "text": "Give warm (not hot) drinks if they are conscious.",
+      "imageName": "burnstep2.png"
+    },
+    {
+      "text": "Call emergency services immediately.",
+      "imageName": "burnstep2.png"
+    }
+  ]
+  },
+  {
+  "name": "Insect Bite or Sting",
+  "steps": [
+    {
+      "text": "Remove the stinger if visible (scrape it out, do not pinch).",
+      "imageName": "burnstep4.png"
+    },
+    {
+      "text": "Wash the area with soap and water.",
+      "imageName": "burnstep1.png"
+    },
+    {
+      "text": "Apply a cold compress to reduce swelling.",
+      "imageName": "burnstep2.png"
+    },
+    {
+      "text": "Call emergency help if there is an allergic reaction (swelling, difficulty breathing).",
+      "imageName": "burnstep2.png"
+    }
+  ]
+  },
+  {
+  "name": "Electric Shock",
+  "steps": [
+    {
+      "text": "Rest the injured limb and avoid putting weight on it.",
+      "imageName": "burnstep4.png"
+    },
+    {
+      "text": "Apply ice for 15 to 20 minutes every hour for the first 24 hours.",
+      "imageName": "burnstep1.png"
+    },
+    {
+      "text": "Wrap with an elastic bandage to reduce swelling.",
+      "imageName": "burnstep2.png"
+    },
+    {
+      "text": "Elevate the limb above heart level if possible. Call emergency help if needed.",
+      "imageName": "burnstep2.png"
+    }
+  ]
+  },
+  {
+  "name": "Seizure",
+  "steps": [
+    {
+      "text": "Clear the area of sharp or hard objects.",
+      "imageName": "burnstep4.png"
+    },
+    {
+      "text": "Do not hold the person down or put anything in their mouth.",
+      "imageName": "burnstep1.png"
+    },
+    {
+      "text": "Place something soft under their head.",
+      "imageName": "burnstep2.png"
+    },
+    {
+      "text": "After the seizure, turn them on their side and keep them calm.",
+      "imageName": "burnstep2.png"
+    },
+    {
+      "text": "If more help needed, Call the emergency line.",
+      "imageName": "burnstep2.png"
+    }
+  ]
+  },
+  {
+  "name": "Eye Injury",
+  "steps": [
+    {
+      "text": "Do not rub or apply pressure to the eye.",
+      "imageName": "burnstep4.png"
+    },
+    {
+      "text": "Rinse gently with clean water or saline if a small object is inside.",
+      "imageName": "burnstep1.png"
+    },
+    {
+      "text": "If a large object is embedded, do not remove it—stabilize and seek medical help immediately.",
+      "imageName": "burnstep2.png"
+    },
+    {
+      "text": "Cover both eyes to reduce movement then call emergency help.",
+      "imageName": "burnstep2.png"
+    }
+  ]
+  },
+  {
+  "name": "Fainting",
+  "steps": [
+    {
+      "text": "Lay the person on their back and elevate their legs.",
+      "imageName": "burnstep4.png"
+    },
+    {
+      "text": "Loosen tight clothing.",
+      "imageName": "burnstep1.png"
+    },
+    {
+      "text": "If they do not regain consciousness within one minute, call for help.",
+      "imageName": "burnstep2.png"
+    },
+    {
+      "text": "Check for breathing and pulse.",
+      "imageName": "burnstep2.png"
+    }
+  ]
   }
 ]
