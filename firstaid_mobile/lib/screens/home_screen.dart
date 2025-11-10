@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
             }
           ),
           IconButton(
-            icon: const Icon(Icons.call, color: Colors.redAccent),
+            icon: const Icon(Icons.call, color: Color.fromARGB(255, 224, 1, 1)),
             tooltip: 'Emergency',
             onPressed: () => Navigator.push(
               context, 

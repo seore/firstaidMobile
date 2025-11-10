@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/injury.dart';
 import '../widgets/injury_stepper.dart';
 import '../services/emergency_service.dart';
+import 'emergency_screen.dart';
 
 class InjuryDetailScreen extends StatelessWidget {
   final Injury injury;
@@ -32,8 +33,18 @@ class InjuryDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(injury.name),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: const Color.fromARGB(255, 216, 216, 216),
         elevation: 3,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.call, color: Color.fromARGB(255, 233, 0, 0)),
+            tooltip: 'Emergency',
+            onPressed: () => Navigator.push(
+              context, 
+              MaterialPageRoute(builder: (context) => EmergencyScreen()),
+            )
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -48,28 +59,6 @@ class InjuryDetailScreen extends StatelessWidget {
             ),
 
             const SizedBox(height: 12),
-
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: _handleEmergencyCall,
-                icon: const Icon(Icons.local_phone),
-                label: const Text(
-                  'Emergency Call',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.redAccent,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  )
-                ),
-              ),
-            ),
           ],
         )
       ),

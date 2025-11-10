@@ -4,7 +4,8 @@
   "steps": [
     {
       "text": "Cool the burn under cool running water for at least 20 minutes.",
-      "imageName": "burnstep1.png"
+      "imageName": "burnstep1.png",
+      "timerSeconds": 1200
     },
     {
       "text": "Remove jewellery or tight clothing near the burn, unless stuck to the skin.",
@@ -50,7 +51,8 @@
     },
     {
       "text": "Pinch the soft part of the nose for 10 to 15 minutes.",
-      "imageName": "nosebleed2.png"
+      "imageName": "nosebleed2.png",
+      "timerSeconds": 600
     },
     {
       "text": "Breathe through the mouth and remain calm.",
