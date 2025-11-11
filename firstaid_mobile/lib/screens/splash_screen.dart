@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFDF0202), 
+      backgroundColor: const Color.fromARGB(255, 247, 170, 170), 
       body: Center(
         child: FadeTransition(
           opacity: _fadeAnimation,
@@ -44,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/icons/app_icon2.png', 
+                'assets/icons/appIconT.png', 
                 height: 120,
               ),
               const SizedBox(height: 20),
@@ -65,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen>
                 'Your Pocket First Aid Companion',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.white70,
+                  color: Colors.white,
                   fontSize: 16,
                 ),
               ),
