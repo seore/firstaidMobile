@@ -1,11 +1,11 @@
+import 'package:aidly/screens/startup_screen.dart';
 import 'package:flutter/material.dart';
 import 'screens/home_screen.dart';
-import 'screens/splash_screen.dart';
-//import 'screens/injury_detail_screen.dart';
+//import 'screens/splash_screen.dart';
 import 'screens/emergency_screen.dart';
 import 'screens/about_screen.dart';
 import 'screens/profile_screen.dart';
-//import 'models/injury.dart';
+//import 'screens/mode_selection.dart';
 
 void main() {
   runApp(FirstAidApp());
@@ -41,10 +41,10 @@ class FirstAidApp extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/',
-      //home: HomeScreen(),
+      home: const StartupRouter(),
       routes: {
-        '/': (context) => SplashScreen(),
+        //'/splash': (context) => SplashScreen(),
+        //'/mode': (context) => ModeSelectionScreen(),
         '/home': (context) => HomeScreen(),
         '/emergency': (context) => EmergencyScreen(),
         '/about': (context) => AboutScreen(),

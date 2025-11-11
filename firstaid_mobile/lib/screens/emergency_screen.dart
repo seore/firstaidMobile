@@ -241,6 +241,14 @@ Future<void> _handleCall(BuildContext context, String number) async {
         backgroundColor: const Color.fromARGB(255, 223, 2, 2),
         actions: [
           IconButton(
+            tooltip: 'Injuries',
+            icon: const Icon(Icons.medical_services),
+            onPressed: () async {
+              await Navigator.pushNamed(context, '/home');
+              await _loadProfile();
+            },
+          ),
+          IconButton(
             tooltip: 'Profile',
             icon: const Icon(Icons.person),
             onPressed: () async {

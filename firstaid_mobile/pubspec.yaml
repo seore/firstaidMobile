@@ -15,6 +15,7 @@ dependencies:
   url_launcher: ^6.3.2
   flutter_tts: ^3.6.3
   shared_preferences: ^2.5.3
+  screen_brightness: ^2.1.7
   quick_actions: ^1.1.0
   cloud_firestore: ^6.1.0
   firebase_core: ^4.2.1
