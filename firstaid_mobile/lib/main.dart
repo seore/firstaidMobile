@@ -1,3 +1,4 @@
+import 'package:aidly/screens/phone_dialer.dart';
 import 'package:aidly/screens/startup_screen.dart';
 import 'package:flutter/material.dart';
 import 'screens/home_screen.dart';
@@ -49,6 +50,7 @@ class FirstAidApp extends StatelessWidget {
         '/emergency': (context) => EmergencyScreen(),
         '/about': (context) => AboutScreen(),
         '/profile': (context) => const ProfileScreen(),
+        '/dialer': (context) => PhoneDialerScreen(),
       },
     );
   }

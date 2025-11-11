@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../services/emergency_service.dart';
 import '../services/profile_service.dart';
 import '../widgets/phone_keypad.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:screen_brightness/screen_brightness.dart';
 
 class EmergencyScreen extends StatefulWidget {
   const EmergencyScreen({super.key});
@@ -25,11 +27,38 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
   String? _locality;
   String? _countryCode;
 
+  double? _previousBrightness;
+
   @override
   void initState() {
     super.initState();
+    _boostBrightness();
     _resolveEmergencyNumber();
     _loadProfile();
+  }
+
+  @override
+  void dispose() {
+    _restoreBrightness();
+    super.dispose();
+  }
+
+  Future<void> _boostBrightness() async {
+    try {
+      final screenController = ScreenBrightness();
+      _previousBrightness = await screenController.current;
+      await screenController.setScreenBrightness(1.0);
+    } catch (_) {
+    }
+  }
+
+  Future<void> _restoreBrightness() async {
+    try {
+      if (_previousBrightness != null) {
+        await ScreenBrightness().setScreenBrightness(_previousBrightness!);
+      }
+    } catch (_) {
+    }
   }
 
   Future<void> _loadProfile() async {
@@ -206,6 +235,7 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
 
 
 Future<void> _handleCall(BuildContext context, String number) async {
+  HapticFeedback.heavyImpact();
   final err = await EmergencyService.tryCall(number);
   if (err != null && mounted) {
     await showDialog(
@@ -230,6 +260,12 @@ Future<void> _handleCall(BuildContext context, String number) async {
   }
 }
 
+Future<void> _panicCall(BuildContext context) async {
+    final number = _emergencyNumber ?? '112';
+    HapticFeedback.vibrate();
+    await _handleCall(context, number);
+}
+
   @override
   Widget build(BuildContext context) {
     final numberLabel = _emergencyNumber ?? '...';
@@ -239,8 +275,12 @@ Future<void> _handleCall(BuildContext context, String number) async {
       appBar: AppBar(
         title: const Text('Emergency'), 
         backgroundColor: const Color.fromARGB(255, 223, 2, 2),
-        actions: [
-          IconButton(
+        leadingWidth: 100,
+        leading: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(width: 4),
+            IconButton(
             tooltip: 'Injuries',
             icon: const Icon(Icons.medical_services),
             onPressed: () async {
@@ -248,6 +288,17 @@ Future<void> _handleCall(BuildContext context, String number) async {
               await _loadProfile();
             },
           ),
+          IconButton(
+            tooltip: 'Dialer',
+            icon: const Icon(Icons.dialpad),
+            onPressed: () {
+              Navigator.pushNamed(context, '/dialer');
+            },
+          ),
+          ],
+        ),
+
+        actions: [
           IconButton(
             tooltip: 'Profile',
             icon: const Icon(Icons.person),
@@ -262,15 +313,13 @@ Future<void> _handleCall(BuildContext context, String number) async {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            const Icon(Icons.emergency_share, size: 48, color: Color.fromARGB(255, 223, 2, 2)
-            ),
             const SizedBox(height: 15),
             const Text(
               'If someone is seriously injured, please call your local emergency number immediately.',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 15),
 
             // Location Info
             if (_countryName != null || _locality != null) ...[
@@ -293,7 +342,7 @@ Future<void> _handleCall(BuildContext context, String number) async {
               ),
               const SizedBox(height: 8),
             ],
-            
+
             Card(
               color: Colors.red[50],
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),
@@ -310,25 +359,27 @@ Future<void> _handleCall(BuildContext context, String number) async {
                 ),
               ),
             ),
-       
+
             const SizedBox(height: 20),
 
-            ElevatedButton.icon(
-              onPressed: _loading ? null : () => _handleCall(context, _emergencyNumber ?? '112'), 
-              //icon: const Icon(Icons.local_phone, size: 14),
-              label: Text(
-                _loading ? "Detecting emergency number..." : "Call $numberLabel",
-                style: const TextStyle(
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: _loading ? null : () => _handleCall(context, _emergencyNumber ?? '112'), 
+                label: Text(
+                  _loading ? "Detecting emergency number..." : "Call $numberLabel",
+                  style: const TextStyle(
                   fontSize: 14,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.bold),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 223, 2, 2),
+                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 ),
               ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 223, 2, 2),
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              ),
             ),
+
             const SizedBox(height: 20),
 
             SizedBox(
@@ -359,7 +410,7 @@ Future<void> _handleCall(BuildContext context, String number) async {
               ),
             ),
           ),
-      
+
           const SizedBox(height: 8),
 
           Expanded(
@@ -391,28 +442,10 @@ Future<void> _handleCall(BuildContext context, String number) async {
                 ],
               ),
             ),
-          )
-          
-          /*
-          Expanded(
-            child: SingleChildScrollView(
-              child: PhoneKeypad(
-                initialNumber: _manualNumber ?? '',
-                callLabel: 'Call',
-                onChanged: (n) {
-                  _manualNumber = n;
-                },
-                onCall: (n) async {
-                  await _handleCall(context, n);
-                },
-              ),
-            )
-          )
-          */
+          ),
         ],
       ),
-    ),
-  );
+    ));
   }
 }
 
