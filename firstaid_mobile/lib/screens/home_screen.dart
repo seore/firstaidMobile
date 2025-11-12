@@ -4,7 +4,6 @@ import '../models/injury.dart';
 import '../services/favorites.dart';
 import 'injury_list_screen.dart';
 import 'favorites_screen.dart';
-import 'quiz_screen.dart';
 import 'injury_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -28,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     // Simple “tip”: pick first step of first injury, or something short
     final first = injuries.first;
-    final firstStep = first.steps.isNotEmpty ? first.steps.first.toString() : '';
+    final firstStep = first.steps.isNotEmpty ? first.steps.first : '';
     return 'Today’s tip - ${first.name}: $firstStep';
   }
 
@@ -133,20 +132,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       },
                     ),
-                    _FeatureCard(
-                      icon: Icons.quiz,
-                      title: 'Quiz Yourself',
-                      subtitle: 'Short practice quizzes',
-                      color: Colors.green,
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => QuizScreen(injuries: injuries),
-                          ),
-                        );
-                      },
-                    ),
                   ],
                 ),
 
@@ -169,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     title: Text(injury.name),
                     subtitle: Text(
                       injury.steps.isNotEmpty
-                          ? injury.steps.first.toString()
+                          ? injury.steps.first
                           : 'Open to view steps.',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,

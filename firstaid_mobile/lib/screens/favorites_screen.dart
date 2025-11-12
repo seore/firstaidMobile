@@ -52,7 +52,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
               itemBuilder: (context, index) {
                 final injury = favourites[index];
                 return ListTile(
-                  leading: const Icon(Icons.star, color: Colors.amber),
+                  leading: const Icon(Icons.star, color: Color.fromARGB(255, 254, 246, 19)),
                   title: Text(injury.name),
                   subtitle: Text(
                     injury.steps.isNotEmpty

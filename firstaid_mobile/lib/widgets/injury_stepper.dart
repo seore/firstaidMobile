@@ -4,7 +4,7 @@ import 'dart:async';
 
 class InjuryStepper extends StatefulWidget {
   final String title;
-  final List<Map<String, dynamic>> steps;
+  final List<dynamic> steps;
   final String? imageAsset;
 
   const InjuryStepper({
