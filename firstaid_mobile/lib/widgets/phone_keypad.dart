@@ -112,7 +112,7 @@ class _PhoneKeypadState extends State<PhoneKeypad> {
               ['*','0','#']
             ])
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6),
+              padding: const EdgeInsets.symmetric(vertical: 7),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -123,7 +123,7 @@ class _PhoneKeypadState extends State<PhoneKeypad> {
           ],
         ),
 
-        const SizedBox(height: 10),
+        const SizedBox(height: 25),
 
         // Backspace + Call row
         Row(
@@ -140,14 +140,14 @@ class _PhoneKeypadState extends State<PhoneKeypad> {
                 ),
               ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 20),
             // Call button
             Expanded(
               child: ElevatedButton.icon(
                 icon: const Icon(Icons.call),
                 label: Text(widget.callLabel),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.redAccent,
+                  backgroundColor: const Color.fromARGB(255, 247, 106, 106),
                   padding: const EdgeInsets.symmetric(vertical: 14),
                 ),
                 onPressed: _number.isEmpty

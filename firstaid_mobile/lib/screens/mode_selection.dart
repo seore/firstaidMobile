@@ -15,7 +15,7 @@ class ModeSelectionScreen extends StatelessWidget {
   }
 
    Future<void> _selectLearn(BuildContext context) async {
-    await ModeService.saveMode('learning');
+    await ModeService.saveMode('normal');
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (_) => const HomeScreen()),
@@ -58,7 +58,7 @@ class ModeSelectionScreen extends StatelessWidget {
                 onPressed: () => _selectLearn(context), 
                 icon: const Icon(Icons.book, color: Colors.blue),
                 label: const Text(
-                  "Learning Mode",
+                  "Normal Mode",
                   style: TextStyle(fontSize: 16, color: Colors.blue),
                 ),
                 style: OutlinedButton.styleFrom(

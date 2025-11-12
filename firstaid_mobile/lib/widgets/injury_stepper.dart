@@ -4,10 +4,8 @@ import 'package:flutter_tts/flutter_tts.dart';
 
 class InjuryStepper extends StatefulWidget {
   final String title;
-  /// Expecting a list of maps like:
-  /// { "text": "...", "imageName": "nosebleed1.png", "timerSeconds": 600 }
   final List<dynamic> steps;
-  final String? imageAsset; // main injury icon (not used here)
+  final String? imageAsset; 
 
   const InjuryStepper({
     super.key,
@@ -28,7 +26,6 @@ class _InjuryStepperState extends State<InjuryStepper> {
 
   bool get _hasSteps => widget.steps.isNotEmpty;
 
-  /// Always normalise the current step into a Map<String, dynamic>
   Map<String, dynamic> get _currentStep {
     if (!_hasSteps) return const {};
     final raw = widget.steps[idx];
@@ -36,7 +33,6 @@ class _InjuryStepperState extends State<InjuryStepper> {
     if (raw is Map<String, dynamic>) return raw;
     if (raw is Map) return Map<String, dynamic>.from(raw);
 
-    // fallback for old String-only steps
     return <String, dynamic>{'text': raw.toString()};
   }
 
@@ -166,7 +162,7 @@ class _InjuryStepperState extends State<InjuryStepper> {
       final stepImg = _currentStepImage;
       if (stepImg != null) {
         return Image.asset(
-          'assets/steps/$stepImg',   // << make sure your files are here
+          'assets/steps/$stepImg',   
           height: 400,
           fit: BoxFit.contain,
         );
