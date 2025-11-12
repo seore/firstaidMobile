@@ -22,13 +22,20 @@ class _HomeScreenState extends State<HomeScreen> {
     _futureInjuries = InjuryRepository.loadInjuries();
   }
 
-  Future<String> _buildDailyTip(List<Injury> injuries) async {
-    if (injuries.isEmpty) return 'Practice staying calm and checking for danger first.';
+   String _stepText(dynamic step) {
+    if (step is String) return step;
+    if (step is Map && step['text'] is String) return step['text'] as String;
+    return step?.toString() ?? '';
+  }
 
-    // Simple “tip”: pick first step of first injury, or something short
+  Future<String> _buildDailyTip(List<Injury> injuries) async {
+    if (injuries.isEmpty) {
+      return 'Practice staying calm and checking for danger first.';
+    }
     final first = injuries.first;
-    final firstStep = first.steps.isNotEmpty ? first.steps.first : '';
-    return 'Today’s tip - ${first.name}: $firstStep';
+    final dynamic firstStep = first.steps.isNotEmpty ? first.steps.first : null;
+    final tipText = firstStep != null ? _stepText(firstStep) : '';
+    return 'Today’s tip - ${first.name}: $tipText';
   }
 
   @override
@@ -134,41 +141,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-
-                const SizedBox(height: 24),
-
-                // Recently viewed / featured injuries
-                Text(
-                  'Popular Guides',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const SizedBox(height: 8),
-
-                ...injuries.take(4).map((injury) {
-                  return ListTile(
-                    contentPadding: const EdgeInsets.symmetric(vertical: 4),
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.teal.shade100,
-                      child: const Icon(Icons.health_and_safety),
-                    ),
-                    title: Text(injury.name),
-                    subtitle: Text(
-                      injury.steps.isNotEmpty
-                          ? injury.steps.first
-                          : 'Open to view steps.',
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    trailing: const Icon(Icons.chevron_right),
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        '/injuryDetail',
-                        arguments: injury,
-                      );
-                    },
-                  );
-                }),
               ],
             ),
           );

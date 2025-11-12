@@ -1,17 +1,15 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'dart:async';
 
 class InjuryStepper extends StatefulWidget {
   final String title;
-  final List<dynamic> steps;
-  final String? imageAsset;
+  final List<dynamic> steps;        
 
   const InjuryStepper({
     super.key,
     required this.title,
     required this.steps,
-    this.imageAsset,
   });
 
   @override
@@ -24,47 +22,31 @@ class _InjuryStepperState extends State<InjuryStepper> {
   Timer? _timer;
   int? _remainingSeconds;
 
-  @override
-  void initState(){
-    super.initState();
-    _setupTimer();
-  }
-
-  // New Injury steps
-  @override
-  void didUpdateWidget(covariant InjuryStepper old) {
-    super.didUpdateWidget(old);
-    if (old.steps != widget.steps) {
-      idx = 0;
-      _setupTimer();
-    }
-  }
-
-  @override
-  void dispose() {
-    _tts.stop();
-    super.dispose();
-  }
-
   bool get _hasSteps => widget.steps.isNotEmpty;
 
+  // NORMALISE current step to a Map<String, dynamic>
   Map<String, dynamic> get _currentStep {
     if (!_hasSteps) return const {};
-    return widget.steps[idx];
+
+    final raw = widget.steps[idx];
+
+    if (raw is Map<String, dynamic>) return raw;
+    if (raw is Map) return Map<String, dynamic>.from(raw);
+
+    // legacy: plain string step
+    return {'text': raw.toString()};
   }
 
   String get _currentStepText {
-    final step = widget.steps[idx];
-    final text = step['text'];
-    if (text is String && text.isNotEmpty) {
-      return text;
-    }
-    return '';
+    final text = _currentStep['text'];
+    return (text is String && text.isNotEmpty) ? text : '';
   }
 
   String? get _currentStepImage {
-    final step = widget.steps[idx];
-    final img = step['imageName'];
+    final step = _currentStep;
+
+    // prefer "imageName", fall back to "image"
+    final img = (step['imageName'] ?? step['image']);
     if (img is String && img.trim().isNotEmpty) {
       return img.trim();
     }
@@ -72,9 +54,38 @@ class _InjuryStepperState extends State<InjuryStepper> {
   }
 
   int? get _currentStepTimer {
-    final t = _currentStep['timerSeconds'];
-    if (t is int && t > 0) return t;
+    final raw = _currentStep['timerSeconds'];
+    if (raw == null) return null;
+
+    if (raw is int && raw > 0) return raw;
+    if (raw is double && raw > 0) return raw.round();
+    if (raw is String) {
+      final parsed = int.tryParse(raw);
+      if (parsed != null && parsed > 0) return parsed;
+    }
     return null;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _setupTimer();
+  }
+
+  @override
+  void didUpdateWidget(covariant InjuryStepper oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.steps != widget.steps) {
+      idx = 0;
+      _setupTimer();
+    }
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _tts.stop();
+    super.dispose();
   }
 
   Future<void> _speak() async {
@@ -85,7 +96,8 @@ class _InjuryStepperState extends State<InjuryStepper> {
   void _setupTimer() {
     _timer?.cancel();
     final seconds = _currentStepTimer;
-    if (seconds != null) {
+
+    if (seconds != null && seconds > 0) {
       _remainingSeconds = seconds;
       _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
         if (!mounted) return;
@@ -93,8 +105,8 @@ class _InjuryStepperState extends State<InjuryStepper> {
           if (_remainingSeconds! > 0) {
             _remainingSeconds = _remainingSeconds! - 1;
           } else {
-            timer.cancel();
             _remainingSeconds = null;
+            timer.cancel();
           }
         });
       });
@@ -106,9 +118,7 @@ class _InjuryStepperState extends State<InjuryStepper> {
   String _formatDuration(int seconds) {
     final m = seconds ~/ 60;
     final s = seconds % 60;
-    final mm = m.toString().padLeft(2, '0');
-    final ss = s.toString().padLeft(2, '0');
-    return "$mm:$ss";
+    return '${m.toString().padLeft(2, '0')}:${s.toString().padLeft(2, '0')}';
   }
 
   void _nextStep() {
@@ -132,7 +142,6 @@ class _InjuryStepperState extends State<InjuryStepper> {
   @override
   Widget build(BuildContext context) {
     final total = widget.steps.length;
-
     if (total == 0) {
       return const Center(
         child: Text(
@@ -148,8 +157,8 @@ class _InjuryStepperState extends State<InjuryStepper> {
       final stepImg = _currentStepImage;
       if (stepImg != null) {
         return Image.asset(
-          'assets/steps/$stepImg',
-          height: 400,
+          'assets/steps/$stepImg',     // make sure files live here
+          height: 220,
           fit: BoxFit.contain,
         );
       }
@@ -171,8 +180,7 @@ class _InjuryStepperState extends State<InjuryStepper> {
         LinearProgressIndicator(value: progress),
         const SizedBox(height: 10),
 
-        // Timer
-        if (_remainingSeconds != null) ... [
+        if (_remainingSeconds != null) ...[
           Align(
             alignment: Alignment.center,
             child: Chip(
@@ -184,8 +192,11 @@ class _InjuryStepperState extends State<InjuryStepper> {
                   const SizedBox(width: 5),
                   Text(
                     _formatDuration(_remainingSeconds!),
-                    style: const TextStyle(fontWeight: FontWeight.bold, color: Color.fromARGB(255, 211, 25, 0)),
-                  )
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 211, 25, 0),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -223,7 +234,8 @@ class _InjuryStepperState extends State<InjuryStepper> {
             ),
             const Spacer(),
             ElevatedButton.icon(
-              onPressed: (idx < total - 1 && _remainingSeconds == null) ? _nextStep : null,
+              onPressed:
+                  (idx < total - 1 && _remainingSeconds == null) ? _nextStep : null,
               icon: const Icon(Icons.arrow_forward),
               label: const Text("Next"),
             ),

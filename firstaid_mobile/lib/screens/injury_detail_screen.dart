@@ -6,7 +6,6 @@ import 'emergency_screen.dart';
 
 class InjuryDetailScreen extends StatelessWidget {
   final Injury injury;
-  //const InjuryDetailScreen({required this.injury, super.key});
   const InjuryDetailScreen({super.key, required this.injury});
 
   @override
@@ -33,7 +32,7 @@ class InjuryDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(injury.name),
-        backgroundColor: const Color.fromARGB(255, 216, 216, 216),
+        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
         elevation: 3,
         actions: [
           IconButton(
@@ -53,12 +52,10 @@ class InjuryDetailScreen extends StatelessWidget {
             Expanded(
               child: InjuryStepper(
                 title: injury.name, 
-                steps: injury.steps.cast<Map<String, dynamic>>(),
-                imageAsset: injury.imageName,
+                steps: injury.steps,
+                //imageAsset: injury.imageName,
               ),
             ),
-
-            const SizedBox(height: 12),
           ],
         )
       ),

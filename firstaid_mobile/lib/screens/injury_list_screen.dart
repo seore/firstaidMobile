@@ -53,13 +53,6 @@ class _InjuryListScreenState extends State<InjuryListScreen> {
                 return ListTile(
                   leading: const Icon(Icons.health_and_safety),
                   title: Text(injury.name),
-                  subtitle: Text(
-                    injury.steps.isNotEmpty
-                        ? injury.steps.first.toString()
-                        : 'Open to view steps.',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
                     Navigator.push(
