@@ -4,12 +4,16 @@ import 'package:flutter_tts/flutter_tts.dart';
 
 class InjuryStepper extends StatefulWidget {
   final String title;
-  final List<dynamic> steps;        
+  /// Expecting a list of maps like:
+  /// { "text": "...", "imageName": "nosebleed1.png", "timerSeconds": 600 }
+  final List<dynamic> steps;
+  final String? imageAsset; // main injury icon (not used here)
 
   const InjuryStepper({
     super.key,
     required this.title,
     required this.steps,
+    this.imageAsset,
   });
 
   @override
@@ -24,29 +28,27 @@ class _InjuryStepperState extends State<InjuryStepper> {
 
   bool get _hasSteps => widget.steps.isNotEmpty;
 
-  // NORMALISE current step to a Map<String, dynamic>
+  /// Always normalise the current step into a Map<String, dynamic>
   Map<String, dynamic> get _currentStep {
     if (!_hasSteps) return const {};
-
     final raw = widget.steps[idx];
 
     if (raw is Map<String, dynamic>) return raw;
     if (raw is Map) return Map<String, dynamic>.from(raw);
 
-    // legacy: plain string step
-    return {'text': raw.toString()};
+    // fallback for old String-only steps
+    return <String, dynamic>{'text': raw.toString()};
   }
 
   String get _currentStepText {
     final text = _currentStep['text'];
-    return (text is String && text.isNotEmpty) ? text : '';
+    if (text is String && text.isNotEmpty) return text;
+    return '';
   }
 
   String? get _currentStepImage {
     final step = _currentStep;
-
-    // prefer "imageName", fall back to "image"
-    final img = (step['imageName'] ?? step['image']);
+    final img = step['imageName']; 
     if (img is String && img.trim().isNotEmpty) {
       return img.trim();
     }
@@ -97,6 +99,12 @@ class _InjuryStepperState extends State<InjuryStepper> {
     _timer?.cancel();
     final seconds = _currentStepTimer;
 
+    // DEBUG: see what the step actually contains
+    // (check this in your console)
+     print('Current step $idx: $_currentStep');
+    print(' -> imageName: ${_currentStep['imageName']}');
+     print(' -> timerSeconds: $seconds');
+
     if (seconds != null && seconds > 0) {
       _remainingSeconds = seconds;
       _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -142,6 +150,7 @@ class _InjuryStepperState extends State<InjuryStepper> {
   @override
   Widget build(BuildContext context) {
     final total = widget.steps.length;
+
     if (total == 0) {
       return const Center(
         child: Text(
@@ -157,8 +166,8 @@ class _InjuryStepperState extends State<InjuryStepper> {
       final stepImg = _currentStepImage;
       if (stepImg != null) {
         return Image.asset(
-          'assets/steps/$stepImg',     // make sure files live here
-          height: 220,
+          'assets/steps/$stepImg',   // << make sure your files are here
+          height: 400,
           fit: BoxFit.contain,
         );
       }
@@ -180,6 +189,7 @@ class _InjuryStepperState extends State<InjuryStepper> {
         LinearProgressIndicator(value: progress),
         const SizedBox(height: 10),
 
+        // Timer chip
         if (_remainingSeconds != null) ...[
           Align(
             alignment: Alignment.center,

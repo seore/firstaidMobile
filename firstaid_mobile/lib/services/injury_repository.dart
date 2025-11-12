@@ -7,27 +7,44 @@ class InjuryRepository {
 
   static Future<List<Injury>> loadInjuries() async {
     if (_cache != null) return _cache!;
+
     final raw = await rootBundle.loadString('assets/injuries.json');
     final List decoded = jsonDecode(raw) as List;
 
     final result = <Injury>[];
+
     for (var i = 0; i < decoded.length; i++) {
       final item = decoded[i];
+
       if (item is Map<String, dynamic>) {
         try {
           result.add(Injury.fromJson(item));
         } catch (e) {
+          // Use a VALID step map instead of a String!
           result.add(Injury(
-            name: 'Invalid entry #$i',
+            name: "Invalid entry #$i",
             imageName: null,
-            steps: ['Unable to parse this entry. Error: $e'], 
+            steps: [
+              {
+                "text": "Unable to parse entry. Error: $e",
+                "imageName": null,
+                "timerSeconds": null,
+              }
+            ],
           ));
         }
       } else {
+        // Use a VALID map here too
         result.add(Injury(
-          name: 'Invalid entry #$i (not an object)',
+          name: "Invalid entry #$i (not an object)",
           imageName: null,
-          steps: ['Expected a JSON object but got ${item.runtimeType}.'],
+          steps: [
+            {
+              "text": "Expected an object, got ${item.runtimeType}",
+              "imageName": null,
+              "timerSeconds": null,
+            }
+          ],
         ));
       }
     }
