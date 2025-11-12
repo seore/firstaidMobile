@@ -53,7 +53,7 @@ class InjuryDetailScreen extends StatelessWidget {
             Expanded(
               child: InjuryStepper(
                 title: injury.name, 
-                steps: injury.steps,
+                steps: injury.steps.cast<Map<String, dynamic>>(),
                 imageAsset: injury.imageName,
               ),
             ),

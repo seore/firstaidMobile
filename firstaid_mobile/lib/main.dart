@@ -1,12 +1,12 @@
+import 'package:aidly/models/injury.dart';
 import 'package:aidly/screens/phone_dialer.dart';
 import 'package:aidly/screens/startup_screen.dart';
 import 'package:flutter/material.dart';
+import 'screens/injury_detail_screen.dart';
 import 'screens/home_screen.dart';
-//import 'screens/splash_screen.dart';
 import 'screens/emergency_screen.dart';
 import 'screens/about_screen.dart';
 import 'screens/profile_screen.dart';
-//import 'screens/mode_selection.dart';
 
 void main() {
   runApp(FirstAidApp());
@@ -21,10 +21,10 @@ class FirstAidApp extends StatelessWidget {
       title: 'Aidly',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: const Color.fromARGB(255, 33, 141, 165),
+        primaryColor: const Color.fromARGB(255, 0, 0, 0),
         scaffoldBackgroundColor: Colors.grey[100],
         appBarTheme: AppBarTheme(
-          backgroundColor: const Color.fromARGB(255, 33, 141, 165),
+          backgroundColor: const Color.fromARGB(255, 0, 0, 0),
           foregroundColor: Colors.white,
           centerTitle: true,
         ),
@@ -44,13 +44,21 @@ class FirstAidApp extends StatelessWidget {
       ),
       home: const StartupRouter(),
       routes: {
-        //'/splash': (context) => SplashScreen(),
-        //'/mode': (context) => ModeSelectionScreen(),
         '/home': (context) => HomeScreen(),
         '/emergency': (context) => EmergencyScreen(),
         '/about': (context) => AboutScreen(),
         '/profile': (context) => const ProfileScreen(),
         '/dialer': (context) => PhoneDialerScreen(),
+      },
+
+      onGenerateRoute: (settings) {
+        if (settings.name == '/injuryDetail') {
+          final injury = settings.arguments as Injury;
+          return MaterialPageRoute(
+            builder: (_) => InjuryDetailScreen(injury: injury)
+          );  
+        }
+        return null;
       },
     );
   }
