@@ -27,8 +27,11 @@ It helps users respond quickly to injuries and medical emergencies with clear, v
 ---
 
 ## 📸 App Preview
-<img width="603" height="1311" alt="appPrev2" src="https://github.com/user-attachments/assets/b93e0ab6-7e4d-4873-9acf-3216b7fa3e14" />
-<img width="603" height="1311" alt="appPrev3" src="https://github.com/user-attachments/assets/a8809f39-7b9c-40f7-abee-fe9fd3bbf5f9" />
+<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 16 Pro - 2025-11-13 at 16 33 31" src="https://github.com/user-attachments/assets/0cec7bc5-5448-414b-8d4c-703e4144ee91" />
+<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 16 Pro - 2025-11-13 at 16 33 41" src="https://github.com/user-attachments/assets/efb01963-b915-441d-b073-03e6eabac954" />
+<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 16 Pro - 2025-11-13 at 16 33 09" src="https://github.com/user-attachments/assets/d53d817f-32cf-4ad9-bbf3-a79e6d420b7a" />
+
+
 
 ## 🧑‍💻 Developed By
 Seore Soyannwo
