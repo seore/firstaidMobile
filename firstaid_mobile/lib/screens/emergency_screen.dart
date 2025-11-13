@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../services/emergency_service.dart';
 import '../services/profile_service.dart';
 import '../widgets/phone_keypad.dart';
+import '../models/profile.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 
