@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../services/profile_service.dart';
 import '../models/profile.dart';
+import '../services/locale_controller.dart';
+import '../services/locale_service.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -18,6 +20,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool _loading = true;
 
   String _lastUpdated = '';
+  String _selectedLang = 'en';
 
   @override
   void initState() {
@@ -32,6 +35,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _allergyController.text = profile.allergies;
     _emergencyController.text = profile.emergencyContact;
     _lastUpdated = profile.lastUpdated;
+
+    final code = await LocaleService.loadLocaleCode();
+    _selectedLang = code ?? 'en';
 
     if (!mounted) return;
     setState(() => _loading = false);
@@ -50,6 +56,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
     
     await ProfileService.save(profile);
+
+    await LocaleService.saveLocaleCode(_selectedLang);
+    LocaleController.of(context).setLocale(_selectedLang);
 
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
@@ -244,6 +253,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
 
                     const SizedBox(height: 20),
+
+                    Text(
+                      'App Language',
+                      style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+
+                    DropdownButtonFormField<String>(
+                      value: _selectedLang,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Language',
+                      ),
+                      items: const [
+                        DropdownMenuItem(
+                          value: 'en',
+                          child: Text('English'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'yo',
+                          child: Text('Yoruba'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'fr',
+                          child: Text('French'),
+                        ),
+                      ],
+                      onChanged: (value) {
+                        if (value == null) return;
+                        setState(() {
+                          _selectedLang = value;
+                        });
+                      },
+                    ),
 
                     // ICE preview card
                     Card(

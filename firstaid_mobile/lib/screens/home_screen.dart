@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import '../services/injury_repository.dart';
 import '../models/injury.dart';
 import 'injury_list_screen.dart';
@@ -40,9 +41,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //final t = AppLocalizations.of(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Aidly'),
+        title: Text('aidly'),
         centerTitle: true,
       ),
       body: FutureBuilder<List<Injury>>(

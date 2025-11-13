@@ -1,15 +1,21 @@
 import 'package:aidly/models/injury.dart';
 import 'package:aidly/screens/phone_dialer.dart';
 import 'package:aidly/screens/startup_screen.dart';
+import 'package:aidly/services/notification_service.dart';
+import 'package:aidly/services/push_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'screens/injury_detail_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/emergency_screen.dart';
 import 'screens/about_screen.dart';
 import 'screens/profile_screen.dart';
+import 'l10n/app_localizations.dart';
 
 void main() {
   runApp(FirstAidApp());
+  PushService.init();
+  NotificationService.init();
 }
 
 class FirstAidApp extends StatelessWidget {
@@ -20,6 +26,17 @@ class FirstAidApp extends StatelessWidget {
     return MaterialApp(
       title: 'Aidly',
       debugShowCheckedModeBanner: false,
+      // App Localizations
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'),
+        Locale('yo'),
+        Locale('fr'),
+      ],
       theme: ThemeData(
         primaryColor: const Color.fromARGB(255, 0, 0, 0),
         scaffoldBackgroundColor: Colors.grey[100],

@@ -10,14 +10,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.20.2
   cupertino_icons: ^1.0.8
   url_launcher: ^6.3.2
   flutter_tts: ^3.6.3
   shared_preferences: ^2.5.3
   screen_brightness: ^2.1.7
+  flutter_local_notifications: ^19.5.0
   quick_actions: ^1.1.0
   cloud_firestore: ^6.1.0
+  firebase_messaging: ^16.0.4
   firebase_core: ^4.2.1
   geolocator: ^14.0.2
   geocoding: ^4.0.0
