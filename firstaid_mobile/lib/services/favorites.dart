@@ -13,14 +13,19 @@ class Favorites {
     await prefs.setStringList(_key, names);
   }
 
-  static Future<void> toggle(String name) async {
+  static Future<bool> toggle(String name) async {
     final current = await load();
+    bool nowFav;
+
     if (current.contains(name)) {
       current.remove(name);
+      nowFav = false;
     } else {
       current.add(name);
+      nowFav = true;
     }
     await save(current);
+    return nowFav;
   }
 
   static Future<bool> isFavourite(String name) async {

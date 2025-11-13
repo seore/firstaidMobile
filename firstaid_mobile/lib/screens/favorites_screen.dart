@@ -52,15 +52,8 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
               itemBuilder: (context, index) {
                 final injury = favourites[index];
                 return ListTile(
-                  leading: const Icon(Icons.star, color: Color.fromARGB(255, 254, 246, 19)),
+                  leading: const Icon(Icons.star, color: Color.fromARGB(255, 233, 225, 18)),
                   title: Text(injury.name),
-                  subtitle: Text(
-                    injury.steps.isNotEmpty
-                        ? injury.steps.first.toString()
-                        : '',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
                     Navigator.push(

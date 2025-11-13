@@ -97,9 +97,9 @@ class _InjuryStepperState extends State<InjuryStepper> {
 
     // DEBUG: see what the step actually contains
     // (check this in your console)
-     print('Current step $idx: $_currentStep');
-    print(' -> imageName: ${_currentStep['imageName']}');
-     print(' -> timerSeconds: $seconds');
+    //print('Current step $idx: $_currentStep');
+    //print(' -> imageName: ${_currentStep['imageName']}');
+    // print(' -> timerSeconds: $seconds');
 
     if (seconds != null && seconds > 0) {
       _remainingSeconds = seconds;
